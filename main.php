@@ -55,6 +55,7 @@ if(isset($_REQUEST['opciones'])){
   </head>
     <body>
 
+<a name="top">
         <!--BARRA NEGRA SUPERIOR -->
       <div id="barraNegra">
         <div id="barraLogin">
@@ -73,27 +74,29 @@ if(isset($_REQUEST['opciones'])){
           </figure>
           <nav>
             <ul>
-              <li><a href="#">INICIO</a></li>
-              <li><a href="#">HISTORIA</a></li>
-              <li><a href="#">CONTACTO</a></li>
+              <li>INICIO</li>
+              <li>HISTORIA</li>
+              <li>CONTACTO</li>
             </ul>
           </nav>
         </section>
       </header>
-
-      <!-- FORMULARIO SELECT PARA FILTRAR EL CONTENIDO -->
       <div id="barraNegraDatos">
          <div id="barraOpciones">
+
+           <!-- FORMULARIO SELECT PARA FILTRAR EL CONTENIDO -->
            <form action="main.php" method="get">
              <select name="opciones">
-               <option value="" disabled selected>Elige una opción</option>
+               <option value="" disabled selected>Filtrar por...</option>
                <option value="0">Todo</option>
                <?php
                   //Rellenar datos del SELECT con los datos de la base de datos
                   $sqlTipo = "SELECT * FROM tbl_tipo_material";
                   //consulta del select
                   $query = mysqli_query($conexion,$sqlTipo);
+                  //mientras por cada dato en el array $query
                   while ($mostrarOpciones = mysqli_fetch_array($query)) {
+                  //crea una opción en el dato extraido de la base de datos
                   echo "<option value='$mostrarOpciones[id_tipo_material]'>$mostrarOpciones[tipo]</option>";
                   }
                 ?>
@@ -105,11 +108,12 @@ if(isset($_REQUEST['opciones'])){
         <main>
         	<section id="centro">
             <?php
+            //consulta de datos según el filtrado
               $datos = mysqli_query($conexion,$sql);
+              //si se devuelve un valor diferente a 0 (hay datos)
               if(mysqli_num_rows($datos)!=0){
                 while ($mostrar = mysqli_fetch_array($datos)) {
             ?>
-
               <!-- PARTE DONDE SE VA A MOSTRAR LA INFORMACIÓN -->
               <div id="divMaterial">
                 <form action="php/reservar.php" method="get">
@@ -119,9 +123,9 @@ if(isset($_REQUEST['opciones'])){
                   <p>Descripción: <?php echo utf8_encode($mostrar['descripcion']); ?><p>
                   <p>Disponibilidad: <?php
                     if(!$mostrar['disponible']){
-                      echo "Disponible";
+                      echo "<img src='img/ok.png' alt='Ok' title='Ok' />";
                     }else {
-                      echo "No disponible";
+                      echo "<img src='img/ko.png' alt='Ko' title='Ko' />";
                     }
                   ?><p>
                   <p>Incidencia:<?php
@@ -132,9 +136,11 @@ if(isset($_REQUEST['opciones'])){
                     }
                   ?><p>
                   <p>Tipo de incidencia:<?php echo utf8_encode($mostrar['descripcion_incidencia']); ?><p>
+                    <!-- campo oculto para enviar el id_material -->
                   <input type="hidden" name="material" value="<?php echo $mostrar['id_material']; ?>">
                   <input type="submit" id="reservar" name="reservar" value="Reservar">
                 </form>
+                <a href="#top"><img src="img/top.png" alt="Subir" title="Subir" /></a>
               </div><br/>
             <?php
                 }

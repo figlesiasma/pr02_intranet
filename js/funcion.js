@@ -2,7 +2,7 @@
 //recibe la variable email
 function validarUser(email) {
     expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ( !expr.test(email) ){
+    if ( !expr.test(email.toLowerCase();) ){
       //en caso fallido, enrojece el cuadro texto con su class css
       document.getElementById('user').className="userKo";
       document.getElementById('pass').value="";

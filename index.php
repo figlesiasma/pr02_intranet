@@ -8,6 +8,8 @@ if(isset($_REQUEST['error'])){
 }
 
 ?>
+
+<!--INICIO WEB -->
 <!DOCTYPE html>
 <html>
   <head>
