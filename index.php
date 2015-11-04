@@ -1,7 +1,8 @@
 <?php
+//conexión con la base de datos
+$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
-$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar');
-
+//se comprueba la variable devuelta de validar_usuario.php en caso de login incorrecto
 if(isset($_REQUEST['error'])){
   $fail = $_REQUEST['error'];
 }
@@ -50,6 +51,8 @@ if(isset($_REQUEST['error'])){
             </header>
             <div id="contenido">
               <div id="formCentro">
+
+                <!-- FORMULARIO DE LOGIN -->
                 <form id="formLogin" action="php/validar_usuario.php" method="get" onsubmit="return validar();">
                   <p>Usuario:</p>
                   <input id="user" class="user" type="email" name="user" size="30" value=" " autofocus required onblur="validarUser(this.value)" onfocus="borrar('user')" autocomplete="off">
@@ -58,11 +61,14 @@ if(isset($_REQUEST['error'])){
                   <input type="submit" class="submit" name="entrar" value=" Entrar ">
                   <input type="reset" class="reset" name="borrar" value=" Borrar " onclick="formatearForm();">
                 </form>
+                <!-- FIN FORMULARIO -->
+
               </div>
             </div>
             <div id="error">
               <p>
                 <?php
+                  //si la variable $fail no está vacía, muestra el contenido
                   if(!empty($fail)){
                     echo $fail;
                   }?>

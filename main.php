@@ -1,26 +1,46 @@
 <?php
-
+//se continúa la sesión
 session_start();
 
-if(!isset($_SESSION['sUser'])){
-  header('location: index.php');
+//se comprueba si la variable mensaje devuelto de reservar.php está instanciada.
+//Si se ha devuelto, es que el insert ha sido correcto.
+if(isset($_REQUEST['mensaje'])){
+  //se comprueba si no está vacía
+  if(!empty($_REQUEST['mensaje'])){
+    //se guarda el contenido en la siguiente variable
+    $mensaje = $_REQUEST['mensaje'];
+    //se muestra un mensaje en un alert javascript
+    echo "<script type='text/javascript'>alert('$mensaje')</script>";
+  }
 }
 
-$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar');
+//si no está instanciada la sesión
+if(!isset($_SESSION['sUser'])){
+  //comprueba si está vacia la sesión
+  if(empty($_SESSION['sUser'])){
+    //en caso afirmativo, redirige a index para login
+    header('location: index.php');
+  }
+}
 
-//Sentencia para mostrar todos los materiales
+//conexión a la base de datos o mensaje en caso de error
+$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
+
+//Sentencia para mostrar todos los materiales de la tabla tbl_material
 $sql = "SELECT tbl_material.id_material, tbl_tipo_material.tipo, tbl_material.descripcion, tbl_material.disponible, tbl_material.incidencia, tbl_material.descripcion_incidencia
         FROM tbl_material
         INNER JOIN tbl_tipo_material ON tbl_tipo_material.id_tipo_material = tbl_material.id_tipo_material";
 
+//comprobación si está instanciada la variable opciones (viene de un select de filtrado en el formulario de cabecera)
 if(isset($_REQUEST['opciones'])){
+  //si los valores son mayores de 0,
   if ($_REQUEST['opciones']>0) {
+    //se añadirá a la consulta según: 0 - Aulas, 1 - Material informático
     $sql .= " WHERE tbl_material.id_tipo_material = ".$_REQUEST['opciones'];
   }
 }
-
 ?>
-
+<!--INICIO WEB -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -53,9 +73,9 @@ if(isset($_REQUEST['opciones'])){
           </figure>
           <nav>
             <ul>
-              <li>INICIO</li>
-              <li>HISTORIA</li>
-              <li>CONTACTO</li>
+              <li><a href="#">INICIO</a></li>
+              <li><a href="#">HISTORIA</a></li>
+              <li><a href="#">CONTACTO</a></li>
             </ul>
           </nav>
         </section>
@@ -112,7 +132,7 @@ if(isset($_REQUEST['opciones'])){
                     }
                   ?><p>
                   <p>Tipo de incidencia:<?php echo utf8_encode($mostrar['descripcion_incidencia']); ?><p>
-                  <input type="hidden" id="material" value="<?php echo $mostrar['id_material']; ?>">
+                  <input type="hidden" name="material" value="<?php echo $mostrar['id_material']; ?>">
                   <input type="submit" id="reservar" name="reservar" value="Reservar">
                 </form>
               </div><br/>
