@@ -44,20 +44,17 @@ $conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No
               $user = $_REQUEST['user'];
               $pass = $_REQUEST['pass'];
 
-              $sql = "SELECT * FROM tbl_usuario";
+              $sql = "SELECT * FROM tbl_usuario WHERE email='$user' AND password='$pass'";
 
               $query = mysqli_query($conexion,$sql);
 
-              while($usuario = mysqli_fetch_array($query)){
-                if($usuario['email']==$user && $usuario['password']==$pass){
+                if(mysqli_num_rows($query)==1){
                   echo "<script>document.getElementById('identificate').innerHTML='$user';</script>";
                   include 'php/mostrar.php';
-                  return 0;
                 }else{
                   header('location: index.php?error=No existe el usuario');
-                  return 1;
                 }
-              }
+
             ?>
         	</section>
         </main>
