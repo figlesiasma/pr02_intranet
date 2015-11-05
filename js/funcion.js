@@ -1,3 +1,4 @@
+
 //funcion que comprueba si el email introducido sigue las normas email
 //recibe la variable email
 function validarUser(email) {
