@@ -55,7 +55,7 @@ if(isset($_REQUEST['error'])){
               <div id="formCentro">
 
                 <!-- FORMULARIO DE LOGIN -->
-                <form id="formLogin" action="php/validar_usuario.php" method="get" onsubmit="return validar();">
+                <form id="formLogin" action="php/validar_usuario.php" method="post">
                   <p>Usuario:</p>
                   <input id="user" class="user" type="email" name="user" size="30" value=" " autofocus required onblur="validarUser(this.value)" onfocus="borrar('user')" autocomplete="off">
                   <p>Contraseña:</p>

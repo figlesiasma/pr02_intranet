@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2015 a las 22:12:46
+-- Tiempo de generación: 05-11-2015 a las 12:19:51
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -80,16 +80,16 @@ CREATE TABLE IF NOT EXISTS `tbl_reservas` (
   `id_reserva` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `hora_entrada` date DEFAULT NULL,
-  `hora_salida` datetime DEFAULT NULL,
+  `hora_salida` date DEFAULT NULL,
   `id_material` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `tbl_reservas`
 --
 
 INSERT INTO `tbl_reservas` (`id_reserva`, `id_usuario`, `hora_entrada`, `hora_salida`, `id_material`) VALUES
-(1, 1, '2015-11-11', NULL, 21);
+(22, 5, '2015-11-05', '2015-11-05', 1);
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,7 @@ ALTER TABLE `tbl_material`
 -- AUTO_INCREMENT de la tabla `tbl_reservas`
 --
 ALTER TABLE `tbl_reservas`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipo_material`
 --

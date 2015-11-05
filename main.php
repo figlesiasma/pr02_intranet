@@ -11,6 +11,8 @@ if(isset($_REQUEST['mensaje'])){
     $mensaje = $_REQUEST['mensaje'];
     //se muestra un mensaje en un alert javascript
     echo "<script type='text/javascript'>alert('$mensaje')</script>";
+    //destruimos la variable para evitar el alert al recargar la web
+    unset($mensaje);
   }
 }
 
@@ -118,14 +120,15 @@ if(isset($_REQUEST['opciones'])){
               <div id="divMaterial">
                 <form action="php/reservar.php" method="get">
                   <br/>
-                  <p>Id: <?php echo $mostrar['id_material']; ?><p>
-                  <p>Tipo: <?php echo utf8_encode($mostrar['tipo']); ?><p>
-                  <p>Descripción: <?php echo utf8_encode($mostrar['descripcion']); ?><p>
+                  <p><img src="img/material/<?php echo $mostrar['id_material']; ?>.jpg" alt="" title"" /></p>
+                  <p><?php echo utf8_encode($mostrar['descripcion']); ?><p>
                   <p>Disponibilidad: <?php
                     if(!$mostrar['disponible']){
                       echo "<img src='img/ok.png' alt='Ok' title='Ok' />";
+                      echo "<script>document.getElementById('reservar').value='Reservar';</script>";
                     }else {
                       echo "<img src='img/ko.png' alt='Ko' title='Ko' />";
+                      echo "<script>document.getElementById('reservar').value='Devolver';</script>";
                     }
                   ?><p>
                   <p>Incidencia:<?php
@@ -137,8 +140,10 @@ if(isset($_REQUEST['opciones'])){
                   ?><p>
                   <p>Tipo de incidencia:<?php echo utf8_encode($mostrar['descripcion_incidencia']); ?><p>
                     <!-- campo oculto para enviar el id_material -->
+                  <input type="hidden" name="disponibilidad" value="<?php echo $mostrar['disponible']; ?>">
                   <input type="hidden" name="material" value="<?php echo $mostrar['id_material']; ?>">
                   <input type="submit" id="reservar" name="reservar" value="Reservar">
+
                 </form>
                 <a href="#top"><img src="img/top.png" alt="Subir" title="Subir" /></a>
               </div><br/>
