@@ -15,19 +15,28 @@ if(!isset($_SESSION['sUser'])){
 $conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
 //Sentencia para mostrar todos los materiales de la tabla tbl_material
-$sql = "SELECT tbl_reservas.id_reserva, tbl_reservas.id_material, tbl_usuario.email, tbl_reservas.hora_entrada, tbl_reservas.hora_salida, COUNT(tbl_reservas.id_material) as 'Nº Reservas', tbl_material.descripcion, tbl_material.disponible
+$sql = "SELECT DISTINCT tbl_reservas.id_reserva, tbl_reservas.id_material, tbl_usuario.email, tbl_reservas.hora_entrada, tbl_reservas.hora_salida, tbl_reservas.id_material, tbl_material.descripcion, tbl_material.disponible
         FROM tbl_reservas
         INNER JOIN tbl_usuario on tbl_usuario.id_usuario = tbl_reservas.id_usuario
-        INNER JOIN tbl_material on tbl_material.id_material = tbl_reservas.id_material";
+        INNER JOIN tbl_material on tbl_material.id_material = tbl_reservas.id_material
+        INNER JOIN tbl_tipo_material on tbl_material.id_tipo_material = tbl_material.id_tipo_material";
+
 
 //comprobación si está instanciada la variable opciones (viene de un select de filtrado en el formulario de cabecera)
 if(isset($_REQUEST['opciones'])){
   //si los valores son mayores de 0,
   if ($_REQUEST['opciones']>0) {
     //se añadirá a la consulta según: 0 - Aulas, 1 - Material informático
-    $sql .= " WHERE tbl_reservas.id_tipo_material = ".$_REQUEST['opciones'];
+    $sql .= " WHERE tbl_material.id_tipo_material =".$_REQUEST['opciones'];
   }
 }
+
+if(isset($_REQUEST['devuelto'])){
+    $sql .= " AND tbl_material.disponible =".$_REQUEST['devuelto'];
+  }
+
+$sql .= " ORDER BY tbl_reservas.hora_entrada DESC";
+
 ?>
 <!--INICIO WEB -->
 <!DOCTYPE html>
@@ -38,7 +47,7 @@ if(isset($_REQUEST['opciones'])){
       <meta charset="utf-8">
       <meta name="author" content="Felipe, Xavi, Germán">
       <meta name="description" content="Proyecto2_intranet">
-      <link rel="icon" type="image/png" href="favicon.ico">
+      <link rel="icon" type="image/png" href="img/icon.png">
       <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
       <script type="text/javascript" src="js/funcion.js"></script>
   </head>
@@ -89,12 +98,18 @@ if(isset($_REQUEST['opciones'])){
                   }
                 ?>
               </select>
+              <select name="devuelto">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="0">Devuelto</option>
+                <option value="1">Reservado</option>
+              </select>
               <input type="submit" name="name" value="Mostrar">
            </form>
          </div>
       </div>
         <main>
         	<section id="centro">
+            <!-- PARTE DONDE SE VA A MOSTRAR LA INFORMACIÓN -->
             <?php
             //consulta de datos según el filtrado
               $datos = mysqli_query($conexion,$sql);
@@ -102,40 +117,40 @@ if(isset($_REQUEST['opciones'])){
               if(mysqli_num_rows($datos)!=0){
                 while ($mostrar = mysqli_fetch_array($datos)) {
             ?>
-            <!-- PARTE DONDE SE VA A MOSTRAR LA INFORMACIÓN -->
             <br/>
             <div id="divMaterialReserva">
                 <table>
                   <tr>
                     <td>Id Reserva</td>
-                    <td>Foto</td>
                     <td>Descripción</td>
                     <td>Reservado</td>
                     <td>Devuelto</td>
-                    <td>Disponibilidad</td>
+                    <td>Disponible</td>
                     <td>Usuario</td>
                   </tr>
                   <tr>
-                    <td><?php $mostrar['id_reserva'];?></td>
-                    <td><img class ="fotoMiniConsulta" src="img/material/<?php echo $mostrar['id_material']; ?>.jpg" alt="" title"" /></td>
-                    <td><?php $mostrar['email'];?></td>
-                    <td><?php $mostrar['hora_entrada'];?></td>
-                    <td><?php $mostrar['hora_salida'];?></td>
-                    <td><?php $mostrar['disponible'];?></td>
-                    <td><?php $mostrar['email'];?></td>
+                    <td style="width:80px"><?php echo $mostrar['id_reserva'];  ?></td>
+                    <td style="width:207px"><?php echo utf8_encode($mostrar['descripcion']); ?></td>
+                    <td style="width:207px"><?php echo $mostrar['hora_entrada']; ?></td>
+                    <td style="width:207px"><?php echo $mostrar['hora_salida']; ?></td>
+                    <td style="text-align:center;"><?php
+                      if(!$mostrar['disponible']){
+                        echo "<img src='img/ok.png' alt='Ok' title='Ok' />";
+                      }else {
+                        echo "<img src='img/ko.png' alt='Ko' title='Ko' />";
+                      }
+                    ?></td>
+                    <td><?php echo $mostrar['email']; ?></td>
                   </tr>
                 </table>
             </div>
-            <br/>
             <?php
-                }
-              }else{
-                echo "No hay datos";
+            }
+          }else{
+              echo "No hay datos";
               }
             ?>
         	</section>
         </main>
     </body>
 </html>
-SELECT tbl_reservas.id_reserva, tbl_reservas.id_material, tbl_usuario.email, tbl_reservas.hora_entrada, tbl_reservas.hora_salida, COUNT(tbl_reservas.id_material) as 'Nº Reservas', tbl_material.descripcion, tbl_material.disponible
-        FROM tbl_reservas

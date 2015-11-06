@@ -18,9 +18,8 @@ if(isset($_REQUEST['error'])){
       <meta charset="utf-8">
       <meta name="author" content="Felipe, Xavi, Germán">
       <meta name="description" content="Proyecto2_intranet">
-      <link rel="icon" type="image/png" href="favicon.ico">
-      <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
-      <script type="text/javascript" src="js/funcion.js"></script>
+      <link rel="icon" type="image/png" href="img/icon.png">
+      <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen">
   </head>
     <body>
       <div id="barraNegra">
@@ -55,13 +54,13 @@ if(isset($_REQUEST['error'])){
               <div id="formCentro">
 
                 <!-- FORMULARIO DE LOGIN -->
-                <form id="formLogin" action="php/validar_usuario.php" method="post">
+                <form id="formLogin" name="formLogin" action="php/validar_usuario.php" method="post">
                   <p>Usuario:</p>
-                  <input id="user" class="user" type="email" name="user" size="30" value=" " autofocus required onblur="validarUser(this.value)" onfocus="borrar('user')" autocomplete="off">
+                  <input id="user" class="user" type="email" name="user" size="30" value="" autofocus required autocomplete="off">
                   <p>Contraseña:</p>
-                  <input id="pass" class="pass" type="password" name="pass" size="30" maxlength="8" value=" " required onblur="validarPass(this.value)" onfocus="borrar('pass')" autocomplete="off">
+                  <input id="pass" class="pass" type="password" name="pass" size="30" maxlength="10" value="" required  autocomplete="off">
                   <input type="submit" class="submit" name="entrar" value=" Entrar ">
-                  <input type="reset" class="reset" name="borrar" value=" Borrar " onclick="formatearForm();">
+                  <input type="reset" class="reset" name="borrar" value=" Borrar ">
                 </form>
                 <!-- FIN FORMULARIO -->
 

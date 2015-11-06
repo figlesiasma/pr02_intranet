@@ -32,6 +32,7 @@ $conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No
 $sql = "SELECT tbl_material.id_material, tbl_tipo_material.tipo, tbl_material.descripcion, tbl_material.disponible, tbl_material.incidencia, tbl_material.descripcion_incidencia
         FROM tbl_material
         INNER JOIN tbl_tipo_material ON tbl_tipo_material.id_tipo_material = tbl_material.id_tipo_material";
+      /*  INNER JOIN tbl_usuario on tbl_usuario.id_usuario = tbl_reservas.id_usuario*/ /*tbl_usuario.email*/
 
 //comprobación si está instanciada la variable opciones (viene de un select de filtrado en el formulario de cabecera)
 if(isset($_REQUEST['opciones'])){
@@ -51,7 +52,7 @@ if(isset($_REQUEST['opciones'])){
       <meta charset="utf-8">
       <meta name="author" content="Felipe, Xavi, Germán">
       <meta name="description" content="Proyecto2_intranet">
-      <link rel="icon" type="image/png" href="favicon.ico">
+      <link rel="icon" type="image/png" href="img/icon.png">
       <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
       <script type="text/javascript" src="js/funcion.js"></script>
   </head>
@@ -108,6 +109,7 @@ if(isset($_REQUEST['opciones'])){
       </div>
         <main>
         	<section id="centro">
+            <!-- PARTE DONDE SE VA A MOSTRAR LA INFORMACIÓN -->
             <?php
             //consulta de datos según el filtrado
               $datos = mysqli_query($conexion,$sql);
@@ -115,7 +117,7 @@ if(isset($_REQUEST['opciones'])){
               if(mysqli_num_rows($datos)!=0){
                 while ($mostrar = mysqli_fetch_array($datos)) {
             ?>
-              <!-- PARTE DONDE SE VA A MOSTRAR LA INFORMACIÓN -->
+
               <div id="divMaterial"><br/>
                 <form id="formMaterial" action="php/reservar.php" method="get">
                   <div id="formQuery">
@@ -127,10 +129,8 @@ if(isset($_REQUEST['opciones'])){
                       <p>Disponibilidad: <?php
                         if(!$mostrar['disponible']){
                           echo "<img src='img/ok.png' alt='Ok' title='Ok' />";
-                          echo "<script>document.getElementById('reservar').value='Reservar';</script>";
                         }else {
                           echo "<img src='img/ko.png' alt='Ko' title='Ko' />";
-                          echo "<script>document.getElementById('reservar').value='Devolver';</script>";
                         }
                       ?><p>
                       <p>Incidencia:<?php
@@ -144,7 +144,14 @@ if(isset($_REQUEST['opciones'])){
                         <!-- campo oculto para enviar el id_material -->
                       <input type="hidden" name="disponibilidad" value="<?php echo $mostrar['disponible']; ?>">
                       <input type="hidden" name="material" value="<?php echo $mostrar['id_material']; ?>">
-                      <input type="submit" id="reservar" name="reservar" value="Reservar">
+                      <!-- Se comprueba el valor de disponible y se asigna un texto al botón -->
+                      <input type="submit" id="reservar" name="reservar" value=<?php
+                        if(!$mostrar['disponible']){
+                          echo "Reservar";
+                        }else {
+                          echo "Devolver";
+                        }
+                        ?>>
                       <a href="#top"><img src="img/top.png" alt="Subir" title="Subir" /></a>
                     </div>
                   </div><br/>
