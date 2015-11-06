@@ -248,6 +248,16 @@ a{
 		border-radius: 5px;
 	}
 
+#formMaterialReserva{
+		background-color: white;
+		width: 500px;
+		height: 225px;
+		margin: 0 auto;
+		border: 1px solid red;
+		border-radius: 5px;
+	}
+
+
 	#formQuery{
 		padding: 10px;
 		width: 90%;
