@@ -38,6 +38,11 @@ if(isset($_REQUEST['devuelto'])){
 $sql .= " ORDER BY tbl_reservas.hora_entrada DESC";
 
 ?>
+<div style="width:150px; height:60px;" border:thin solid silver"
+onmouseover="resalta(this)" onmouseout="resalta(this)">
+Seccion de contenidos...
+</div>
+
 <!--INICIO WEB -->
 <!DOCTYPE html>
 <html>

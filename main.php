@@ -55,6 +55,7 @@ if(isset($_REQUEST['opciones'])){
       <link rel="icon" type="image/png" href="img/icon.png">
       <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
       <script type="text/javascript" src="js/funcion.js"></script>
+      <script type="text/javascript" src="js/funcionresaltar.js"></script>
   </head>
     <body>
 
@@ -128,8 +129,10 @@ if(isset($_REQUEST['opciones'])){
                       <p id="formTituloMaterial"><?php echo utf8_encode($mostrar['descripcion']); ?><p>
                       <p>Disponibilidad: <?php
                         if(!$mostrar['disponible']){
+
                           echo "<img src='img/ok.png' alt='Ok' title='Ok' />";
-                        }else {
+                        }else { 
+                          echo "<script>document.getElementById('formMaterial').style=document.getElementById('formMaterialReserva')</script>";
                           echo "<img src='img/ko.png' alt='Ko' title='Ko' />";
                         }
                       ?><p>
