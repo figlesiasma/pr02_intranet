@@ -31,6 +31,7 @@ if(isset($_REQUEST['opciones'])){
   }
 }
 
+//consulta para filtrado de reservado o devuelto
 if(isset($_REQUEST['devuelto'])){
     $sql .= " AND tbl_material.disponible =".$_REQUEST['devuelto'];
   }
@@ -147,7 +148,17 @@ $sql .= " ORDER BY tbl_reservas.hora_entrada DESC";
             <?php
             }
           }else{
-              echo "No hay datos";
+            ?>
+            <br/>
+            <div id="divMaterialReserva">
+                <table>
+                  <tr>
+                    <th>
+                    <p><img src="img/info.png" alt="info" title="info" /> NO HAY DATOS QUE MOSTRAR </p>
+                    </th>
+                  </tr>
+                </table>
+            </div><?php
               }
             ?>
         	</section>
