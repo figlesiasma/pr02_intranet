@@ -12,7 +12,7 @@ if(!isset($_SESSION['sUser'])){
 }
 
 //conexión a la base de datos o mensaje en caso de error
-$conexion = mysqli_connect('localhost','root','DAW22015','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
+$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
 //Sentencia para mostrar todos los materiales de la tabla tbl_material
 $sql = "SELECT DISTINCT tbl_reservas.id_reserva, tbl_reservas.id_material, tbl_usuario.email, tbl_reservas.hora_entrada, tbl_reservas.hora_salida, tbl_reservas.id_material, tbl_material.descripcion, tbl_material.disponible

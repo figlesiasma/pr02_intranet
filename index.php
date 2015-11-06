@@ -1,6 +1,6 @@
 <?php
 //conexión con la base de datos
-$conexion = mysqli_connect('localhost','root','DAW22015','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
+$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
 //se comprueba la variable devuelta de validar_usuario.php en caso de login incorrecto
 if(isset($_REQUEST['error'])){

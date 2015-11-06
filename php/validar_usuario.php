@@ -3,7 +3,7 @@
 session_start();
 
 //se conecta con la base de datos
-$conexion = mysqli_connect('localhost','root','DAW22015','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
+$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
   //se crean las sesiones para las variables de usuario y password cogidas del formulario
   $_SESSION['sUser']= $_REQUEST['user'];
