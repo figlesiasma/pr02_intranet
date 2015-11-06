@@ -3,7 +3,7 @@
 session_start();
 
 //se realiza la conexión a la base de datos
-$conexion = mysqli_connect('localhost','root','','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
+$conexion = mysqli_connect('localhost','root','DAW22015','bd_pr02_intranet') or die ('No se ha podido conectar'. mysql_error());
 
 if ($_REQUEST['disponibilidad']==0){
   //consulta de inserción
