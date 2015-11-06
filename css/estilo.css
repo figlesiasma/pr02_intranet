@@ -320,3 +320,9 @@ a{
 	table tr td{
 		color: black;
 	}
+
+	#info{
+		width: 20px;
+		height: 20px;
+
+	}
