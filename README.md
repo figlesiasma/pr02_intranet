@@ -1,10 +1,8 @@
 # pr02_intranet
 
-Proyecto02: INTRANET
+GitHub: https://github.com/figlesiasma/pr02_intranet
 
-Proyecto02: INTRANET 
-
-http://oxfordintranet.3eeweb.com/
+Proyecto02: INTRANET http://oxfordintranet.3eeweb.com/
 
 USUARIOS		PASSWORD
 
